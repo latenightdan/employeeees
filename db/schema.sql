@@ -1,24 +1,18 @@
 -- DROP TABLE IF EXISTS votes;
-DROP TABLE IF EXISTS employees;
-DROP TABLE IF EXISTS departments;
-DROP TABLE IF EXISTS roles;
 
+
+DROP TABLE IF EXISTS employees;
+
+DROP TABLE IF EXISTS roles;
+DROP TABLE IF EXISTS departments;
 
 
 CREATE TABLE departments (
   id INTEGER AUTO_INCREMENT PRIMARY KEY,
-  name VARCHAR(50) NOT NULL,
+  department_name VARCHAR(50) NOT NULL,
   description TEXT
 );
 
-CREATE TABLE employees (
-  id INTEGER AUTO_INCREMENT PRIMARY KEY,
-  first_name VARCHAR(30) NOT NULL,
-  last_name VARCHAR(30) NOT NULL,
-  departments_id INTEGER,
---   industry_connected BOOLEAN NOT NULL,
-  CONSTRAINT fk_department FOREIGN KEY (departments_id) REFERENCES departments(id) ON DELETE SET NULL
-);
 
 CREATE TABLE roles (
  id INTEGER AUTO_INCREMENT PRIMARY KEY,
@@ -26,6 +20,17 @@ CREATE TABLE roles (
   salary DECIMAL(9,2),
   departments_id INTEGER,
   CONSTRAINT fk_departmentsid FOREIGN KEY (departments_id) REFERENCES departments(id) ON DELETE SET NULL
+);
+CREATE TABLE employees (
+  id INTEGER AUTO_INCREMENT PRIMARY KEY,
+  first_name VARCHAR(30) NOT NULL,
+  last_name VARCHAR(30) NOT NULL,
+  departments_id INTEGER,
+  role_id INTEGER,
+  manager VARCHAR(30),
+--   industry_connected BOOLEAN NOT NULL,
+  CONSTRAINT fk_department FOREIGN KEY (departments_id) REFERENCES departments(id) ON DELETE SET NULL,
+  CONSTRAINT fk_roles FOREIGN KEY (role_id) REFERENCES roles(id) ON DELETE SET NULL
 );
 
 -- CREATE TABLE votes (
